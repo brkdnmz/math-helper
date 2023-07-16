@@ -16,45 +16,34 @@ export function Properties({ number }: { number: number }) {
 
   if (isNaN(number) || !number) return <></>;
 
+  const propertiesList = [
+    { description: "Number of digits", value: `${properties.nDigits}` },
+    { description: "Factorization", value: factorizationLatex },
+    { description: "Number of divisors", value: `${properties.nDivisors} ${exponentsProductLatex}` },
+    { description: "Is prime?", value: `\\text{${properties.isPrime ? "Yes" : "No"}}` },
+    {
+      description: "Primes up to current",
+      value: properties.nPrimesUpTo === undefined ? "\\text{Number too big}" : `${properties.nPrimesUpTo}`,
+    },
+    { description: "Previous prime", value: `${properties.prevPrime ?? "-"}` },
+    { description: "Next prime", value: `${properties.nextPrime ?? "-"}` },
+  ];
+
   return (
     <Card className="w-full p-3">
-      <CardTitle className="text-center">
+      <CardTitle>
         Properties of <InlineMath>{`${number}`}</InlineMath>
       </CardTitle>
       <CardHeader>
-        <ul className="grid grid-cols-1 text-xl">
-          <li>
-            <h1 className="text-2xl font-light">Number of digits</h1>
-            <InlineMath>{`${properties.nDigits}`}</InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Factorization</h1>
-            <InlineMath>{factorizationLatex}</InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Number of divisors</h1>
-            <InlineMath>{`${properties.nDivisors} ${exponentsProductLatex}`}</InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Is Prime</h1>
-            <InlineMath>{`\\text{${properties.isPrime ? "Yes" : "No"}}`}</InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Number of primes up to current</h1>
-            <InlineMath>
-              {properties.nPrimesUpTo === undefined
-                ? `\\text{Number too big } (> ${properties.maxPrimeLimit ?? 0})`
-                : `${properties.nPrimesUpTo}`}
-            </InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Previous Prime</h1>
-            <InlineMath>{`${properties.prevPrime ?? "-"}`}</InlineMath>
-          </li>
-          <li>
-            <h1 className="text-2xl font-light">Next Prime</h1>
-            <InlineMath>{`${properties.nextPrime}`}</InlineMath>
-          </li>
+        <ul className="grid grid-cols-1 gap-2 divide-y divide-slate-300">
+          {propertiesList.map(({ description, value }) => (
+            <li key={description}>
+              <h2 className="text-lg font-light">{description}</h2>
+              <span className="text-xl">
+                <InlineMath>{value}</InlineMath>
+              </span>
+            </li>
+          ))}
         </ul>
       </CardHeader>
     </Card>

@@ -41,7 +41,7 @@ export function StartUp() {
         <CardContent>
           <Input
             className={clsx(errors.number && "focus-visible:ring-rose-400")}
-            placeholder="Enter a number within [1, 10^7]"
+            placeholder="Enter a number within [0, 10^7]"
             type="number"
             {...register("number", { valueAsNumber: true })}
           />
