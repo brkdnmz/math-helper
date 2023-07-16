@@ -13,7 +13,9 @@ type AppActions = {
 };
 
 function getSieveUpperBound() {
-  return Number(localStorage.getItem("sieveUpperBound"));
+  const storedUB = localStorage.getItem("sieveUpperBound");
+  if (storedUB !== null) return Number(storedUB);
+  return undefined;
 }
 
 function setSieveUpperBound(sieveUpperBound: number) {
