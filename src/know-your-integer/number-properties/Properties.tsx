@@ -31,15 +31,15 @@ export function Properties({ number }: { number: number }) {
 
   return (
     <Card className="w-full p-3">
-      <CardTitle>
+      <CardTitle className="text-center">
         Properties of <InlineMath>{`${number}`}</InlineMath>
       </CardTitle>
       <CardHeader>
         <ul className="grid grid-cols-1 gap-2 divide-y divide-slate-300">
           {propertiesList.map(({ description, value }) => (
             <li key={description}>
-              <h2 className="text-lg font-light">{description}</h2>
-              <span className="text-xl">
+              <h2 className="font-light">{description}</h2>
+              <span>
                 <InlineMath>{value}</InlineMath>
               </span>
             </li>
