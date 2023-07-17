@@ -62,7 +62,7 @@ export class MathHelper {
       }
       divisors = newDivisors;
     }
-    return divisors;
+    return divisors.sort((a, b) => a - b);
   }
 
   nPrimesUpTo(x: number) {

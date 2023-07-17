@@ -18,6 +18,7 @@ export function Properties({ number }: { number: number }) {
 
   const propertiesList = [
     { description: "Number of digits", value: `${properties.nDigits}` },
+    { description: "Square root (floored)", value: `${properties.sqrt}` },
     { description: "Factorization", value: factorizationLatex },
     { description: "Number of divisors", value: `${properties.nDivisors} ${exponentsProductLatex}` },
     { description: "Divisors", value: `${properties.divisors?.join(", ") ?? "-"}` },
@@ -40,7 +41,7 @@ export function Properties({ number }: { number: number }) {
           {propertiesList.map(({ description, value }) => (
             <li key={description}>
               <h2 className="font-light">{description}</h2>
-              <span className="break-all">
+              <span>
                 <InlineMath>{value}</InlineMath>
               </span>
             </li>
