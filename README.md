@@ -1,6 +1,6 @@
 # [Math Helper](https://brkdnmz.github.io/math-helper)
 
-### This small app lets you see some properties about integers.
+### This small app lets you see some properties of integers. Also, it has a sieve visualizer.
 
 Currently, the properties are:
 
@@ -12,6 +12,6 @@ Currently, the properties are:
 - **Previous prime**
 - **Next prime**
 
-Also, additional properties will be added :)
+Additional properties will be added :)
 
 Special thanks to [muratbiberoglu](https://github.com/muratbiberoglu) for helping me deploy the app!
