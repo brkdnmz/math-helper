@@ -51,6 +51,20 @@ export class MathHelper {
     return this.nDivisorsFactorization(this.factorize(x));
   }
 
+  findDivisors(factorization: Factorization) {
+    let divisors = [1];
+    for (const x of factorization) {
+      const newDivisors = [];
+      for (let e = 0; e <= x.exponent; e++) {
+        for (const d of divisors) {
+          newDivisors.push(d * x.prime ** e);
+        }
+      }
+      divisors = newDivisors;
+    }
+    return divisors;
+  }
+
   nPrimesUpTo(x: number) {
     if (x > this.PRIME_UPPER_BOUND) return undefined;
     return this.nPrimesUntil[x];

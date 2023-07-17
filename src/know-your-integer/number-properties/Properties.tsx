@@ -20,6 +20,7 @@ export function Properties({ number }: { number: number }) {
     { description: "Number of digits", value: `${properties.nDigits}` },
     { description: "Factorization", value: factorizationLatex },
     { description: "Number of divisors", value: `${properties.nDivisors} ${exponentsProductLatex}` },
+    { description: "Divisors", value: `${properties.divisors?.join(", ") ?? "-"}` },
     { description: "Is prime?", value: `\\text{${properties.isPrime ? "Yes" : "No"}}` },
     {
       description: "Primes up to current",
@@ -39,7 +40,7 @@ export function Properties({ number }: { number: number }) {
           {propertiesList.map(({ description, value }) => (
             <li key={description}>
               <h2 className="font-light">{description}</h2>
-              <span>
+              <span className="break-all">
                 <InlineMath>{value}</InlineMath>
               </span>
             </li>

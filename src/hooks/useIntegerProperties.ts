@@ -5,6 +5,7 @@ export function useIntegerProperties(x: number) {
   const mathHelper = useAppStore((state) => state.mathHelper);
   const factorization = useMemo(() => mathHelper?.factorize(x) ?? [], [mathHelper, x]);
   const nDivisors = useMemo(() => mathHelper?.nDivisorsFactorization(factorization) ?? 0, [factorization, mathHelper]);
+  const divisors = useMemo(() => mathHelper?.findDivisors(factorization), [factorization]);
   const isPrime = useMemo(() => nDivisors == 2, [nDivisors]);
   const prevPrime = useMemo(() => mathHelper?.prevPrime(x), [mathHelper, x]);
   const nextPrime = useMemo(() => mathHelper?.nextPrime(x), [mathHelper, x]);
@@ -15,6 +16,7 @@ export function useIntegerProperties(x: number) {
     maxPrimeLimit: mathHelper?.PRIME_UPPER_BOUND,
     factorization,
     nDivisors,
+    divisors,
     isPrime,
     prevPrime,
     nextPrime,
