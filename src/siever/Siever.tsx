@@ -2,12 +2,39 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
+import { useCallback, useEffect } from "react";
 import { useSieveStore } from "./SieveStore";
 import { SieveTable } from "./SieveTable";
 import { SieveState } from "./types";
 
 export function Siever() {
-  const { upperBound, state, setUpperBound, start, reset } = useSieveStore();
+  const { upperBound, setUpperBound, animation, startAnimation, proceedAnimation, resetAnimation } = useSieveStore();
+
+  const isAnimationNotStarted = animation.state === SieveState.NOT_STARTED;
+  const isAnimationFinished = animation.state === SieveState.AFTER_COMPLETED;
+
+  const buttonText = (() => {
+    if (animation.state === SieveState.NOT_STARTED) return "Start";
+    else if (animation.state !== SieveState.AFTER_COMPLETED) return "Enter to proceed";
+    else return "Stop";
+  })();
+
+  const onProceedAnimation = useCallback(() => {
+    if (animation.state === SieveState.NOT_STARTED) startAnimation();
+    else if (animation.state !== SieveState.AFTER_COMPLETED) proceedAnimation();
+    else resetAnimation();
+  }, [animation.state, proceedAnimation, resetAnimation, startAnimation]);
+
+  useEffect(() => {
+    const onEnter = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        onProceedAnimation();
+      }
+    };
+    document.addEventListener("keydown", onEnter);
+
+    return () => document.removeEventListener("keydown", onEnter);
+  }, [animation.state, onProceedAnimation]);
 
   return (
     <>
@@ -29,19 +56,21 @@ export function Siever() {
               id="number"
               value={upperBound}
               onChange={(e) => {
-                const newValue = Number(e.target.value);
-                if (e.target.value && !(1 <= newValue && newValue <= 100)) {
+                const newValue = Number(e.target.valueAsNumber);
+                console.log(newValue);
+
+                if (!isNaN(newValue) && !(1 <= newValue && newValue <= 100)) {
                   return;
                 }
-                setUpperBound(e.target.value);
+                setUpperBound(newValue);
               }}
-              disabled={state !== SieveState.NOT_STARTED}
+              disabled={animation.state !== SieveState.NOT_STARTED}
             />
             <Button
-              onClick={state !== SieveState.NOT_STARTED ? reset : start}
-              disabled={upperBound === ""}
+              onClick={onProceedAnimation}
+              disabled={isNaN(upperBound) || !upperBound || !(isAnimationNotStarted || isAnimationFinished)}
             >
-              {state !== SieveState.NOT_STARTED ? "Stop" : "Start"}
+              {buttonText}
             </Button>
           </div>
         </CardContent>

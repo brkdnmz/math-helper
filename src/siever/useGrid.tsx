@@ -1,4 +1,5 @@
 export function useGrid(upperBound: number) {
+  if (isNaN(upperBound)) return { rows: [], rowsClass: "" };
   // upperBound is at most 100
   let rowsClass = "grid-rows-1";
   const nRows = Math.ceil(upperBound / 10);

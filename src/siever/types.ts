@@ -1,5 +1,6 @@
 export enum SieveState {
   NOT_STARTED,
+  STARTED,
   NEW_NUM_STARTED,
   CUR_NUM_FINISHED,
   NEW_MULTIPLE,
