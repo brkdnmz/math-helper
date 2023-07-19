@@ -7,6 +7,7 @@ Currently, the properties are:
 - **Number of digits**
 - **Factorization**
 - **Number of divisors**
+- **List of divisors**
 - **Is it prime?**
 - **Number of primes up to the number**
 - **Previous prime**
